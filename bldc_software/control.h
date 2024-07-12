@@ -40,14 +40,14 @@
 
 typedef struct 
 {
-    int32 SetPoint;
-    double Proportion;      
-    double Integral;         
-    double Derivative;       
-    int32 LastError;
-    int32 PreError;
-    int32 SumError;
-    double Output;
+    float SetPoint;
+    float Proportion;
+    float Integral;
+    float Derivative;
+    float LastError;
+    float PreError;
+    float SumError;
+    float Output;
 }PID;
 
 extern PID fan;
@@ -64,6 +64,6 @@ void commutation_time_count_init();
 void pit_init();
 void set_vector_table_free();
 void PID_Init(PID *pid, double setpoint, double kp, double ki, double kd);
-void PID_Calculate(PID *pid, double current_value);
+void PID_Calculate(PID *pid, float current_value);
 
 #endif

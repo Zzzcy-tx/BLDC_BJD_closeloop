@@ -82,11 +82,12 @@ void pwm_input_trigger_callback(void)
         motor_pwm_input_value.throttle = 0;
     }
 
-    if (motor.run_flag == MOTOR_CLOSE_LOOP) {
+//     if (motor.run_flag == MOTOR_IDLE || motor.run_flag == MOTOR_STOP_STALL)
+//     {
+//        motor.duty = (uint32)motor_pwm_input_value.throttle * BLDC_MAX_DUTY / 1000;
+//     } else {
         fan.SetPoint = (uint32)motor_pwm_input_value.throttle * BLDC_MAX_DUTY / 1000;
-    } else {
-        motor.duty = (uint32)motor_pwm_input_value.throttle * BLDC_MAX_DUTY / 1000;
-    }
+//     }
 
 }
 

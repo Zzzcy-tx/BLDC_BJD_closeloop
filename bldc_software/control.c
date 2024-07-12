@@ -390,9 +390,13 @@ void PID_Init(PID *pid, double setpoint, double kp, double ki, double kd) {
 }
 
 
-void PID_Calculate(PID *pid, double current_value) {
-    double error = pid->SetPoint - current_value;   // 计算误差
+void PID_Calculate(PID *pid, float current_value) {
+    float error = pid->SetPoint - current_value;   // 计算误差
     pid->SumError += error;                         // 累计误差用于积分
+
+    if((error>0 && pid->LastError<0) || (error<0 && pid->LastError>0)){
+        pid->SumError = 0;
+    }
 
     // 计算PID输出
     pid->Output = pid->Proportion * error                     // 比例项

@@ -80,7 +80,6 @@ int main(void)
     // 初始化定时器4，用作统计换向时间和换向超时判断
     commutation_time_count_init();
 
-    PID_Init(&fan, 0, 20, 0.002, 0.008);
 
 #if BLDC_BEEP_ENABLE
     // 电机播放音频
@@ -100,26 +99,27 @@ int main(void)
     // 嘀嗒定时器用作周期中断后，就不能再用于延时
     pit_init();
 
-    PID_Init(&fan, 0, 10, 0.1, 0);    //structset p i d
+    PID_Init(&fan, 0, 10, 0.001, 0.03);
 
 //    // 初始化逐飞助手示波器的结构体
    seekfree_assistant_oscilloscope_struct oscilloscope_data = {0};
 
     while(1)
     {
+//        printf("%f,%f,%f\n", fan.SetPoint, 1000000.0/(float)motor.filter_commutation_time_sum, fan.Output);
         IWDG_ReloadCounter();           // 喂狗
 //        printf("%u\n",motor.commutation_num);
 
        oscilloscope_data.data[0] = motor.run_flag;
        oscilloscope_data.data[1] = motor.duty;
-       oscilloscope_data.data[2] = motor.duty_register;
-//        oscilloscope_data.data[3] = motor.commutation_faile_count;
+       oscilloscope_data.data[2] = fan.SetPoint;
+       oscilloscope_data.data[3] = 1000000/motor.filter_commutation_time_sum;
        oscilloscope_data.data[4] = motor.filter_commutation_time_sum;
-       oscilloscope_data.data[5] = motor.commutation_time_sum;
+       oscilloscope_data.data[5] = fan.Output;
        oscilloscope_data.data[6] = motor.commutation_num;
-//        oscilloscope_data.data[7] = battery.voltage;
-//
-//       seekfree_assistant_oscilloscope_send(&oscilloscope_data);
+       oscilloscope_data.data[7] = battery.voltage;
+
+       seekfree_assistant_oscilloscope_send(&oscilloscope_data);
 
     }
 }

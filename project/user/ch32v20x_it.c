@@ -72,27 +72,26 @@ void SysTick_Handler(void)
     // led灯控制
     led_control();
 
+    if(period_time >= 100){
 
-    if(period_time == 100){
         period_time = 0;
-        printf("%d,%d,%d,%d\n",fan.SetPoint,1000000/motor.filter_commutation_time_sum,fan.Output,motor.run_flag);
+        PID_Calculate(&fan ,1000000/(float)motor.filter_commutation_time_sum);
         if (motor.run_flag == MOTOR_CLOSE_LOOP) {
-            if (delay_flag >=10) {
-                PID_Calculate(&fan ,1000000/motor.filter_commutation_time_sum);
-                if (fan.Output >= 0) {
-                    motor.duty = fan.Output;
-                }
-            } else {
-                delay_flag++;
-                motor.duty = fan.SetPoint;
+            if(motor.duty >= 0 && motor.duty <= BLDC_MAX_DUTY){
+                motor.duty = fan.Output;
+            }else if(motor.duty <= 0){
+                motor.duty = 0;
+            }else{
+                motor.duty = BLDC_MAX_DUTY;
             }
         } else {
-            delay_flag = 0;
             motor.duty = fan.SetPoint;
         }
+    } else {
+        period_time++;
     }
-    last_commutation_num = motor.filter_commutation_time_sum;
-    period_time++;
+//     last_commutation_num = motor.filter_commutation_time_sum;
+
 
     // 清除中断标志位
     SysTick->SR = 0;
@@ -120,6 +119,9 @@ void TIM2_IRQHandler(void)
 void TIM3_IRQHandler(void)
 {
     commutation_and_degauss_callback();
+
+
+
     // 清除中断标志位
     TIM3->INTFR = 0;
 }
