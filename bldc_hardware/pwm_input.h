@@ -56,6 +56,7 @@ void pwm_input_trigger_callback();
 void pwm_input_timeout_callback();
 
 extern pwm_input_struct motor_pwm_input_value;
+extern uint8 clac_flag;
 
 #endif
 

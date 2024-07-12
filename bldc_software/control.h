@@ -48,9 +48,11 @@ typedef struct
     float PreError;
     float SumError;
     float Output;
+    float LastOutput;
 }PID;
 
 extern PID fan;
+extern uint8 clac_flag;
 
 void commutation_and_degauss_callback();
 void commutation_time_out_callback();

@@ -99,7 +99,7 @@ int main(void)
     // 嘀嗒定时器用作周期中断后，就不能再用于延时
     pit_init();
 
-    PID_Init(&fan, 0, 10, 0.001, 0.03);
+    PID_Init(&fan, 0, 8, 0.001, 0.03);
 
 //    // 初始化逐飞助手示波器的结构体
    seekfree_assistant_oscilloscope_struct oscilloscope_data = {0};

@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//bldc_hardware/pwm_input.h=UTF-8
 encoding//user/ch32v20x_it.h=UTF-8
 encoding//user/main.c=UTF-8
 encoding//wch_sdk/Peripheral/inc/ch32v20x.h=UTF-8

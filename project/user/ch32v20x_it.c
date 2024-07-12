@@ -40,6 +40,7 @@
 #include "led.h"
 #include "pwm_input.h"
 uint16 period_time = 0;
+uint8 clac_flag = 0;
 uint16 delay_flag = 0;
 uint16 last_commutation_num = 0;
 
@@ -77,9 +78,10 @@ void SysTick_Handler(void)
         period_time = 0;
         PID_Calculate(&fan ,1000000/(float)motor.filter_commutation_time_sum);
         if (motor.run_flag == MOTOR_CLOSE_LOOP) {
-            if(motor.duty >= 0 && motor.duty <= BLDC_MAX_DUTY){
+            clac_flag = 1;
+            if(fan.Output >= 0 && fan.Output <= BLDC_MAX_DUTY){
                 motor.duty = fan.Output;
-            }else if(motor.duty <= 0){
+            }else if(fan.Output <= 0){
                 motor.duty = 0;
             }else{
                 motor.duty = BLDC_MAX_DUTY;

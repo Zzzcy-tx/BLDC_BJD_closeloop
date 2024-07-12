@@ -66,27 +66,31 @@ void pwm_input_trigger_callback(void)
         if(2000 <= motor_pwm_input_value.high)
         {
             motor_pwm_input_value.throttle = 1000;
+            clac_flag = 1;
         }
         else
         {
             motor_pwm_input_value.throttle = (motor_pwm_input_value.high - 1000);
+            clac_flag = 1;
         }
 
         if(BLDC_MIN_DUTY > (motor_pwm_input_value.throttle * BLDC_MAX_DUTY / 1000))
         {
             motor_pwm_input_value.throttle = 0;
+            clac_flag = 0;
         }
     }
     else
     {
         motor_pwm_input_value.throttle = 0;
+        clac_flag = 0;
     }
 
 //     if (motor.run_flag == MOTOR_IDLE || motor.run_flag == MOTOR_STOP_STALL)
 //     {
 //        motor.duty = (uint32)motor_pwm_input_value.throttle * BLDC_MAX_DUTY / 1000;
 //     } else {
-        fan.SetPoint = (uint32)motor_pwm_input_value.throttle * BLDC_MAX_DUTY / 1000;
+        fan.SetPoint = 0.8 * (uint32)motor_pwm_input_value.throttle * BLDC_MAX_DUTY / 1000;
 //     }
 
 }

@@ -34,7 +34,7 @@
 
 #define BLDC_RESTART_MAX            (20)            // 最大重启次数
 
-#define BLDC_SPEED_INCREMENTAL      (8 )            // 单次加速最大值 1-15，可修改这个提高加速响应
+#define BLDC_SPEED_INCREMENTAL      (5 )            // 单次加速最大值 1-15，可修改这个提高加速响应
 
 #endif
 

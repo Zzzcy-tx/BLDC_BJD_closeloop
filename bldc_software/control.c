@@ -403,9 +403,17 @@ void PID_Calculate(PID *pid, float current_value) {
                  + pid->Integral * pid->SumError              // 积分项
                  + pid->Derivative * (error - pid->LastError); // 微分项
 
+    if (pid->Output <= 0 && pid->LastOutput <= 0 && clac_flag == 0){
+        pid->Output = 0;
+    } else if (pid->Output <= 0 && clac_flag == 1){
+        pid->Output = 5;
+    }
+
+
     // 更新误差变量
     pid->PreError = pid->LastError;
     pid->LastError = error;
+    pid->LastOutput = pid->Output;
 }
 
 
