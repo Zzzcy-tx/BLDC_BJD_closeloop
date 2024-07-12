@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.cjson": "jsonc",
+        "*.wxss": "css",
+        "*.wxs": "javascript",
+        "headfile.h": "c",
+        "bldc_config.h": "c",
+        "seekfree_assistant.h": "c",
+        "control.h": "c"
+    }
+}
