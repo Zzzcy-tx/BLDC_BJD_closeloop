@@ -1,3 +1,17 @@
 *.o
 *.b
 *.mk
+*.bin
+*.elf
+*.lst
+*.map
+*.dmp
+*.hex
+*.s19
+*.lss
+*.sym
+*.d
+*.d.bak
+*.d.new
+*.d.old
+*.d.tmp

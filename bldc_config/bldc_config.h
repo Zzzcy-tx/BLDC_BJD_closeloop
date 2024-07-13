@@ -4,7 +4,7 @@
 // 开环启动电压
 #define BLDC_START_VOLTAGE          (1.3f )         // 1.0 - 2.0 单位V
 
-#define BLDC_MIN_VOLTAGE            (10500)         // 最低电压值，单位mv
+#define BLDC_MIN_VOLTAGE            (8500)         // 最低电压值，单位mv
 
 #define BLDC_COMMUTATION_FAILED_MAX (2000 )         // 换相错误最大次数 大于这个次数后认为电机堵转
 

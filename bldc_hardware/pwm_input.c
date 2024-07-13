@@ -90,7 +90,8 @@ void pwm_input_trigger_callback(void)
 //     {
 //        motor.duty = (uint32)motor_pwm_input_value.throttle * BLDC_MAX_DUTY / 1000;
 //     } else {
-        fan.SetPoint = 0.8 * (uint32)motor_pwm_input_value.throttle * BLDC_MAX_DUTY / 1000;
+    fan.SetPoint = 0.8 * (uint32)motor_pwm_input_value.throttle * BLDC_MAX_DUTY / 1000;   //Side Fans
+//    fan.SetPoint = 0.73 * (uint32)motor_pwm_input_value.throttle * BLDC_MAX_DUTY / 1000;    //Front and Back side
 //     }
 
 }
