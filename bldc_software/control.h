@@ -41,9 +41,11 @@
 typedef struct 
 {
     float SetPoint;
+    float LastSetPoint;
     float Proportion;
     float Integral;
     float Derivative;
+    float Derivative_Input;
     float LastError;
     float PreError;
     float SumError;
@@ -65,7 +67,7 @@ void advance_commutation_count_init();
 void commutation_time_count_init();
 void pit_init();
 void set_vector_table_free();
-void PID_Init(PID *pid, double setpoint, double kp, double ki, double kd);
+void PID_Init(PID *pid, double setpoint, double kp, double ki, double kd, double kd_input);
 void PID_Calculate(PID *pid, float current_value);
 
 #endif

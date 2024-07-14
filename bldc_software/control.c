@@ -378,11 +378,13 @@ void pit_callback(void)
     }
 }
 
-void PID_Init(PID *pid, double setpoint, double kp, double ki, double kd) {
+void PID_Init(PID *pid, double setpoint, double kp, double ki, double kd, double kd_input) {
     pid->SetPoint = setpoint;
+    pid->LastSetPoint = setpoint;
     pid->Proportion = kp;
     pid->Integral = ki;
     pid->Derivative = kd;
+    pid->Derivative_Input = kd_input;
     pid->LastError = 0;
     pid->PreError = 0;
     pid->SumError = 0;
@@ -401,7 +403,8 @@ void PID_Calculate(PID *pid, float current_value) {
     // 计算PID输出
     pid->Output = pid->Proportion * error                     // 比例项
                  + pid->Integral * pid->SumError              // 积分项
-                 + pid->Derivative * (error - pid->LastError); // 微分项
+                 + pid->Derivative * (error - pid->LastError) // 微分项
+                 + pid->Derivative_Input * (pid->LastSetPoint - pid->SetPoint);//缓动项
 
     if (pid->Output <= 0 && pid->LastOutput <= 0 && clac_flag == 0){
         pid->Output = 0;

@@ -73,9 +73,9 @@ void SysTick_Handler(void)
     // ledµÆ¿ØÖÆ
     led_control();
 
-    if(period_time >= 100){
-
-        period_time = 0;
+//    if(period_time >= 1){
+//
+//        period_time = 0;
         PID_Calculate(&fan ,1000000/(float)motor.filter_commutation_time_sum);
         if (motor.run_flag == MOTOR_CLOSE_LOOP) {
             clac_flag = 1;
@@ -89,9 +89,9 @@ void SysTick_Handler(void)
         } else {
             motor.duty = fan.SetPoint;
         }
-    } else {
-        period_time++;
-    }
+//    } else {
+//        period_time++;
+//    }
 //     last_commutation_num = motor.filter_commutation_time_sum;
 
 
